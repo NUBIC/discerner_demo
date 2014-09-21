@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20140921040082) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "discerner_dictionaries", force: true do |t|
     t.string   "name",           null: false
     t.datetime "deleted_at"
@@ -22,7 +25,7 @@ ActiveRecord::Schema.define(version: 20140921040082) do
     t.string   "namespace_type"
   end
 
-  add_index "discerner_dictionaries", ["name", "deleted_at"], name: "index_discerner_dictionaries", unique: true
+  add_index "discerner_dictionaries", ["name", "deleted_at"], name: "index_discerner_dictionaries", unique: true, using: :btree
 
   create_table "discerner_export_parameters", force: true do |t|
     t.integer  "search_id"
@@ -43,7 +46,7 @@ ActiveRecord::Schema.define(version: 20140921040082) do
     t.string   "operator_type"
   end
 
-  add_index "discerner_operators", ["unique_identifier", "deleted_at"], name: "index_discerner_operators", unique: true
+  add_index "discerner_operators", ["unique_identifier", "deleted_at"], name: "index_discerner_operators", unique: true, using: :btree
 
   create_table "discerner_operators_parameter_types", force: true do |t|
     t.integer "operator_id"
@@ -58,7 +61,7 @@ ActiveRecord::Schema.define(version: 20140921040082) do
     t.datetime "updated_at"
   end
 
-  add_index "discerner_parameter_categories", ["name", "dictionary_id", "deleted_at"], name: "index_discerner_parameter_categories", unique: true
+  add_index "discerner_parameter_categories", ["name", "dictionary_id", "deleted_at"], name: "index_discerner_parameter_categories", unique: true, using: :btree
 
   create_table "discerner_parameter_types", force: true do |t|
     t.string   "name"
@@ -67,7 +70,7 @@ ActiveRecord::Schema.define(version: 20140921040082) do
     t.datetime "updated_at"
   end
 
-  add_index "discerner_parameter_types", ["name", "deleted_at"], name: "index_discerner_parameter_types", unique: true
+  add_index "discerner_parameter_types", ["name", "deleted_at"], name: "index_discerner_parameter_types", unique: true, using: :btree
 
   create_table "discerner_parameter_value_categories", force: true do |t|
     t.integer  "parameter_id"
@@ -80,7 +83,7 @@ ActiveRecord::Schema.define(version: 20140921040082) do
     t.datetime "updated_at"
   end
 
-  add_index "discerner_parameter_value_categories", ["parameter_id", "unique_identifier", "deleted_at"], name: "discerner_parameter_value_categories_uniq_index", unique: true
+  add_index "discerner_parameter_value_categories", ["parameter_id", "unique_identifier", "deleted_at"], name: "discerner_parameter_value_categories_uniq_index", unique: true, using: :btree
 
   create_table "discerner_parameter_value_categorizations", force: true do |t|
     t.integer  "parameter_value_category_id"
@@ -90,7 +93,7 @@ ActiveRecord::Schema.define(version: 20140921040082) do
     t.datetime "updated_at"
   end
 
-  add_index "discerner_parameter_value_categorizations", ["parameter_value_category_id", "parameter_value_id", "deleted_at"], name: "discerner_parameter_value_categorizations_uniq_index", unique: true
+  add_index "discerner_parameter_value_categorizations", ["parameter_value_category_id", "parameter_value_id", "deleted_at"], name: "discerner_parameter_value_categorizations_uniq_index", unique: true, using: :btree
 
   create_table "discerner_parameter_values", force: true do |t|
     t.string   "name",         limit: 1000
@@ -101,7 +104,7 @@ ActiveRecord::Schema.define(version: 20140921040082) do
     t.datetime "updated_at"
   end
 
-  add_index "discerner_parameter_values", ["search_value", "parameter_id", "deleted_at"], name: "index_discerner_parameter_values", unique: true
+  add_index "discerner_parameter_values", ["search_value", "parameter_id", "deleted_at"], name: "index_discerner_parameter_values", unique: true, using: :btree
 
   create_table "discerner_parameters", force: true do |t|
     t.string   "name"
