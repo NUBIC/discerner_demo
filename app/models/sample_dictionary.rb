@@ -1,0 +1,15 @@
+class SampleDictionary
+  attr_accessor :search
+
+  def initialize(search)
+    @search = search
+  end
+
+  def search(params = {}, options = {})
+
+  end
+
+  def export(params = {}, options = {})
+
+  end
+end
